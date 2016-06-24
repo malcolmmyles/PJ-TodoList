@@ -14,7 +14,6 @@ var todoList = {
       }
     }
   },
-    // Adds a new item to the todo list.
   addTodo: function(todoText) {
     this.todos.push({
       todoText: todoText,
@@ -22,23 +21,23 @@ var todoList = {
     });
     this.displayTodos()
   },
-    // Changes a todo in the list
+
   changeTodo: function(position, todoText) {
     this.todos[position].todoText = todoText;
     this.displayTodos();
   },
-    // Deletes a todo from the list/
+
   deleteTodo: function(position) {
     this.todos.splice(position, 1);
     this.displayTodos();
   },
-    // Toggles a todo on or off.
+
   toggleCompleted: function(position) {
     var todo = this.todos[position];
     todo.completed = !todo.completed;
     this.displayTodos();
   },
-    // Toggles all todos on. If all todos are completed. Toggle all off.
+
   toggleAll: function() {
     var totalTodos = this.todos.length;
     var completedTodos = 0;
@@ -65,14 +64,15 @@ var todoList = {
   }
 };
 
-var displayTodosButton = document.getElementById('displayTodosButton');
-var toggleAllButton = document.getElementById('toggleAllButton');
-
-displayTodosButton.addEventListener('click', function() {
+var handlers = {
+  displayTodos: function() {
   todoList.displayTodos();
-});
-
-toggleAllButton.addEventListener('click', function() {
-  todoList.toggleAll()
-  
-});
+  },
+  toggleAll: function() {
+  todoList.toggleAll();
+  },
+  addTodo: function() {
+  var addTodoTextInput = document.getElementById('addTodoTextInput');
+  todoList.addTodo(addTodoTextInput.value);
+  }
+}
