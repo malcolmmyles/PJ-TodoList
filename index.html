@@ -4,7 +4,6 @@
   <head>
     <link rel="stylesheet" href="style.css">
   </head>
-
   <body>
     <h1>To-Do List</h1>
     
@@ -18,6 +17,27 @@
     <input id ='addTodoTextInput' type='text'>
     </div>
     
+    
+    <div>
+    <button onclick='handlers.changeTodo()'>Change</button>
+    <input type="number" id ='changeTodoPositionInput'>
+    <input type="text" id ='changeTodoTextInput'>
+    </div>
+   
+   
+    <div>
+       <button onclick = 'handlers.deleteTodo()'>Delete</button>
+    <input id='deleteTodoPositionInput' type='number'>
+    </div>
+    
+    
+    <div>
+       <button onclick = 'handlers.toggleCompleted()'>Complete</button>
+    <input id='toggleTodoPositionInput' type='number'>
+    </div>
+    
+    <ul>
+    </ul>
     
     <script src="script.js"></script>
   </body>
