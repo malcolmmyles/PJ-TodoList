@@ -1,26 +1,27 @@
-var todoList = {
+var todoList = { 
   todos: [],
-  addTodo: function(todoText) {
+  addTodo: function(todoText) { // Adds a new todo to the list.
     this.todos.push({
       todoText: todoText,
       completed: false
     });
   },
 
-  changeTodo: function(position, todoText) {
+  changeTodo: function(position, todoText) { // Changes a todo on the list using its array index.
     this.todos[position].todoText = todoText;
   },
 
-  deleteTodo: function(position) {
+  deleteTodo: function(position) { // Deletes a chosen todo from the list using array index.
     this.todos.splice(position, 1);
   },
 
-  toggleCompleted: function(position) {
+    
+  toggleCompleted: function(position) { // Changes the completion of a chosen todo to true if false. And vice versa.
     var todo = this.todos[position];
     todo.completed = !todo.completed;
   },
 
-  toggleAll: function() {
+  toggleAll: function() { // If not all todo's are completed, this function will toggle them all to completed. If they are all completed, the function toggles them all incomplete. 
     var totalTodos = this.todos.length;
     var completedTodos = 0;
 
@@ -45,7 +46,7 @@ var todoList = {
   }
 };
 
-var handlers = {
+var handlers = { // Calls the todolist methods by clicking each method's respective button.
   addTodo: function() {
     var addTodoTextInput = document.getElementById('addTodoTextInput');
     todoList.addTodo(addTodoTextInput.value);
@@ -78,7 +79,7 @@ var handlers = {
 };
 
 
-var view = {
+var view = { // Displays any changes in the todo list on-screen.
 
   displayTodos: function() {
     var todosUl = document.querySelector('ul');
