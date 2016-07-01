@@ -1,52 +1,46 @@
-var todoList = { 
+var todoList = {
   todos: [],
-  addTodo: function(todoText) { // Adds a new todo to the list.
+  addTodo: function(todoText) {
     this.todos.push({
       todoText: todoText,
       completed: false
     });
   },
-
-  changeTodo: function(position, todoText) { // Changes a todo on the list using its array index.
+  changeTodo: function(position, todoText) {
     this.todos[position].todoText = todoText;
   },
-
-  deleteTodo: function(position) { // Deletes a chosen todo from the list using array index.
+  deleteTodo: function(position) {
     this.todos.splice(position, 1);
   },
-
-    
-  toggleCompleted: function(position) { // Changes the completion of a chosen todo to true if false. And vice versa.
+  toggleCompleted: function(position) {
     var todo = this.todos[position];
     todo.completed = !todo.completed;
   },
-
-  toggleAll: function() { // If not all todo's are completed, this function will toggle them all to completed. If they are all completed, the function toggles them all incomplete. 
+  toggleAll: function() {
     var totalTodos = this.todos.length;
     var completedTodos = 0;
-
-    for (i = 0; i < totalTodos; i++) {
-      if (this.todos[i].completed === true) {
+    
+    // Get number of completed todos.
+    this.todos.forEach(function(todo){
+      if (todo.completed === true) {
         completedTodos++;
       }
-    }
+    });
+          
+          this.todos.forEach(function(todo){
+            //Case 1: If everythings true, make everything false
+            if (completedTodos === totalTodos) {
+              todo.completed = false;
+            }
+            //Case 1: If everythings note true, make everything true.
+            else {
+              todo.completed = true;
+            }
+            })
+            }
+}
 
-    // Case 1: If everything is true, make it false.
-    if (completedTodos === totalTodos) {
-      for (i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = false;
-      }
-    }
-    // Case 2: If everything is false, make it true.
-    else {
-      for (i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = true;
-      }
-    }
-  }
-};
-
-var handlers = { // Calls the todolist methods by clicking each method's respective button.
+var handlers = {
   addTodo: function() {
     var addTodoTextInput = document.getElementById('addTodoTextInput');
     todoList.addTodo(addTodoTextInput.value);
@@ -55,51 +49,85 @@ var handlers = { // Calls the todolist methods by clicking each method's respect
   },
   changeTodo: function() {
     var changeTodoPositionInput = document.getElementById('changeTodoPositionInput');
-    var changeTodoTextInput = document.getElementById('changeTodoTextInput')
+    var changeTodoTextInput = document.getElementById('changeTodoTextInput');
     todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
-    changeTodoTextInput.value = ' ';
+    changeTodoPositionInput.value = '';
+    changeTodoTextInput.value = '';
     view.displayTodos();
   },
-  deleteTodo: function() {
-    var deleteTodoPositionInput = document.getElementById('deleteTodoPositionInput');
-    todoList.deleteTodo(deleteTodoPositionInput.valueAsNumber);
-    deleteTodoPositionInput.value = '';
+  deleteTodo: function(position) {
+    todoList.deleteTodo(position);
     view.displayTodos();
+    
   },
   toggleCompleted: function() {
-    var toggleTodoPositionInput = document.getElementById('toggleTodoPositionInput');
-    todoList.toggleCompleted(toggleTodoPositionInput.valueAsNumber);
-    deleteTodoPositionInput.value = '';
+    var toggleCompletedPositionInput = document.getElementById('toggleCompletedPositionInput');
+    todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
+    toggleCompletedPositionInput.value = '';
     view.displayTodos();
   },
   toggleAll: function() {
     todoList.toggleAll();
     view.displayTodos();
-  },
+  }  
 };
 
-
-var view = { // Displays any changes in the todo list on-screen.
-
+var view = {
   displayTodos: function() {
     var todosUl = document.querySelector('ul');
     todosUl.innerHTML = '';
-    for (i = 0; i < todoList.todos.length; i++) {
+    todoList.todos.forEach(function(todo, position){
       var todoLi = document.createElement('li');
-      var todo = todoList.todos[i];
-      var todoTextWithCompletion = ''
-      todoLi.textContent = todoTextWithCompletion;
+      var todo = todoList.todos[position];
+      var todoTextWithCompletion = '';
 
       if (todo.completed === true) {
         todoTextWithCompletion = '(x) ' + todo.todoText;
       } else {
         todoTextWithCompletion = '( ) ' + todo.todoText;
       }
-
-       todoLi.textContent = todoTextWithCompletion;
+      
+      todoLi.id = position;
+      todoLi.textContent = todoTextWithCompletion;
+      todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
       
+    }, this);
+  },
+  createDeleteButton: function() {
+    var deleteButton = document.createElement('button')
+    deleteButton.textContent = 'Delete';
+    deleteButton.className = 'deleteButton';
+    return deleteButton;
+  },
   
-    }
+  setUpEventListeners: function () {
+    
+    var todosUl = document.querySelector('ul')
+
+todosUl.addEventListener('click', function(event) {
+  console.log(event.target.parentNode.id);
+  // Get the element that was clicked on
+  var elementClicked = event.target;
+  // Check if element clicked is delete button
+  if (elementClicked.className === "deleteButton") {
+    //run handlers.deleteTodo
+    handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
   }
-}
+  });
+    
+  }
+  
+};
+
+view.setUpEventListeners();
+
+
+
+
+
+
+
+
+
+

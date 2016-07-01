@@ -1,47 +1,35 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-      <title>Todo List</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Practical Todos</title>
+    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon.ico" type="image/x-icon">
+      
   </head>
   <body>
-    <h1>To-Do List</h1>
-    
+    <h1>Todo List</h1>
+
     <div>
-    <button onclick ="handlers.displayTodos()">Display To-Dos</button>
-    <button onclick ='handlers.toggleAll()'>Toggle All</button>
-   </div>
-   
-   <div>
-    <button onclick ='handlers.addTodo()'>Add</button>
-    <input id ='addTodoTextInput' type='text'>
+      <button onclick="handlers.toggleAll()">Toggle All</button>
     </div>
     
-    
     <div>
-    <button onclick='handlers.changeTodo()'>Change</button>
-    <input type="number" id ='changeTodoPositionInput'>
-    <input type="text" id ='changeTodoTextInput'>
-    </div>
-   
-   
-    <div>
-       <button onclick = 'handlers.deleteTodo()'>Delete</button>
-    <input id='deleteTodoPositionInput' type='number'>
+      <button onclick="handlers.addTodo()">Add</button>
+      <input id="addTodoTextInput" type="text">
     </div>
     
-    
     <div>
-       <button onclick = 'handlers.toggleCompleted()'>Complete</button>
-    <input id='toggleTodoPositionInput' type='number'>
+      <button onclick="handlers.changeTodo()">Change Todo</button>
+      <input id="changeTodoPositionInput" type="number">
+      <input id="changeTodoTextInput" type="text">
     </div>
     
-      <!--- List to hold user todos --->
+    <div>
+      <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+      <input id="toggleCompletedPositionInput" type="number">
+    </div>
+    
     <ul>
     </ul>
-    
     <script src="js/script.js"></script>
   </body>
-
 </html>
