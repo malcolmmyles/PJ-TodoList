@@ -28,7 +28,7 @@ var todoList = {
     });
           
           this.todos.forEach(function(todo){
-            //Case 1: If everythings true, make everything false
+            //Case 1: If everythings true, make everything false.
             if (completedTodos === totalTodos) {
               todo.completed = false;
             }
